@@ -9,6 +9,10 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+# database name is facsearch
+# $ psql facsearch
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.

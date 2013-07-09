@@ -2,20 +2,19 @@ from forms.models import Host, Visitor, Assistant
 from django.contrib import admin
 
 
-class HostAdmin(admin.ModelAdmin):
-	fields = ['fName', 'lName', 'officePhone', 'officeNumber', 'email']
 
-	def __unicode__(self):
-		return self.lName
+# class HostAdmin(admin.ModelAdmin):
+# 	fields = ['officePhone', 'officeNumber', 'mitId']
 
 admin.site.register(Host, HostAdmin)
 
-class VisitorAdmin(admin.ModelAdmin):
-	field = ['fName', 'lName', 'dietary','videoRecording', 'cellPhone', 'officePhone', 'email', 'state', 'zipcode', 'country']
+
+# class VisitorAdmin(admin.ModelAdmin):
+# 	field = ['dietary','videoRecording', 'cellPhone', 'officePhone', 'state', 'zipcode', 'country']
 
 admin.site.register(Visitor, VisitorAdmin)
 
-class AssistantAdmin(admin.ModelAdmin):
-	field = ['fName', 'lName', 'officePhone','officeNumber', 'email']
+# class AssistantAdmin(admin.ModelAdmin):
+# 	field = ['officePhone','officeNumber']
 
 admin.site.register(Assistant, AssistantAdmin)

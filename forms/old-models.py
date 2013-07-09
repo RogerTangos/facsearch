@@ -1,28 +1,33 @@
 from django.db import models
-from django.contrib.auth.models import User
 
 # Create your models here.
 
 class Host(models.Model):
-	user = models.OneToOneField(User)
 	lastLogin = models.DateTimeField('last login', null=True, blank=True)
+
+	fName = models.CharField(max_length=100, null=True, blank=True)
+	lName = models.CharField(max_length=100, null=True, blank=True)	
 
 	officePhone = models.CharField(max_length=20, null=True, blank=True)
 	officeNumber = models.CharField(max_length=7, null=True, blank=True)
+	email = models.CharField(max_length=100, null=True, blank=True)
 	mitId = models.CharField(max_length=100, null=True, blank=True)
 
 
 	def __unicode__(self):
-		return '%s, %s | %i | %s' %(user.first_name, user.last_name, self.pk, self.email)
+		return '%s, %s | %i | %s' %(self.fName, self.lName, self.pk, self.email)
 
 
 
 class Visitor(models.Model):
-	user = models.OneToOneField(User)
-	hosts = models.ManyToManyField(Host)
-	
 	lastLogin = models.DateTimeField('last login', null=True, blank=True)
+	hosts = models.ManyToManyField(Host)
 
+
+	fName = models.CharField(max_length=100, null=True, blank=True)
+	lName = models.CharField(max_length=100, null=True, blank=True)	
+
+	email = models.CharField(max_length=100, null=True, blank=True)
 	address1 = models.CharField(max_length=100, null=True, blank=True)
 	address2 = models.CharField(max_length=100, null=True, blank=True)
 	city = models.CharField(max_length=50, null=True, blank=True)
@@ -37,21 +42,24 @@ class Visitor(models.Model):
 	videoRecording = models.BooleanField()
 
 	def __unicode__(self):
-		return '%s, %s | %i | %s' %(user.first_name, user.last_name, self.pk, self.email)
+		return '%s, %s | %i | %s' %(self.fName, self.lName, self.pk, self.email)
 
 
 
 class Assistant(models.Model):
 	# denormalized for convenience
-	user = models.OneToOneField(User)
 	facMembers = models.ManyToManyField(Host)
 
 	# may support assistant login later
 	lastLogin = models.DateTimeField('last login', null=True, blank=True)
 
+	fName = models.CharField(max_length=100, null=True, blank=True)
+	lName = models.CharField(max_length=100, null=True, blank=True)	
+
 	officePhone = models.CharField(max_length=20, null=True, blank=True)
 	officeNumber = models.CharField(max_length=7, null=True, blank=True)
+	email = models.CharField(max_length=100, null=True, blank=True)
 	mitId = models.CharField(max_length=100, null=True, blank=True)
 
 	def __unicode__(self):
-		return '%s, %s | %i | %s' %(user.first_name, user.last_name, self.pk, self.email)
+		return '%s, %s | %i | %s' %(self.fName, self.lName, self.pk, self.email)
