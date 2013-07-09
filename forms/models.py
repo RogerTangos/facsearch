@@ -13,7 +13,7 @@ class Host(models.Model):
 
 
 	def __unicode__(self):
-		return '%s, %s | %i | %s' %(user.first_name, user.last_name, self.pk, self.email)
+		return '%s, %s | %i | %s' %(self.user.last_name, self.user.first_name, self.pk, self.user.email)
 
 
 
@@ -37,7 +37,7 @@ class Visitor(models.Model):
 	videoRecording = models.BooleanField()
 
 	def __unicode__(self):
-		return '%s, %s | %i | %s' %(user.first_name, user.last_name, self.pk, self.email)
+		return '%s, %s | %i | %s' %(self.user.last_name, self.user.first_name, self.pk, self.user.email)
 
 
 
@@ -54,4 +54,4 @@ class Assistant(models.Model):
 	mitId = models.CharField(max_length=100, null=True, blank=True)
 
 	def __unicode__(self):
-		return '%s, %s | %i | %s' %(user.first_name, user.last_name, self.pk, self.email)
+		return '%s, %s | %i | %s' %(self.user.last_name, self.user.first_name, self.pk, self.user.email)
