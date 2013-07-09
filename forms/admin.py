@@ -1,4 +1,4 @@
-from forms.models import Host, Visitor, Assistant
+from forms.models import Host, Visitor, Assistant, Event
 from django.contrib.auth.models import User
 from django.contrib import admin
 
@@ -19,3 +19,5 @@ admin.site.register(Visitor)
 # 	field = ['officePhone','officeNumber']
 
 admin.site.register(Assistant)
+
+admin.site.register(Event)

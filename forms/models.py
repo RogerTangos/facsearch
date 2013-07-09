@@ -19,7 +19,7 @@ class Host(models.Model):
 
 class Visitor(models.Model):
 	user = models.OneToOneField(User)
-	hosts = models.ManyToManyField(Host)
+	hosts = models.ManyToManyField(Host, null=True)
 	
 	lastLogin = models.DateTimeField('last login', null=True, blank=True)
 
@@ -44,7 +44,7 @@ class Visitor(models.Model):
 class Assistant(models.Model):
 	# denormalized for convenience
 	user = models.OneToOneField(User)
-	facMembers = models.ManyToManyField(Host)
+	facMembers = models.ManyToManyField(Host, null=True)
 
 	# may support assistant login later
 	lastLogin = models.DateTimeField('last login', null=True, blank=True)
@@ -55,3 +55,16 @@ class Assistant(models.Model):
 
 	def __unicode__(self):
 		return '%s, %s | %i | %s' %(self.user.last_name, self.user.first_name, self.pk, self.user.email)
+
+class Event(models.Model):
+    title = models.CharField(max_length=60)
+    location = models.CharField(max_length=60)
+    start = models.DateTimeField(null=True, blank=True)
+    end = models.DateTimeField(null=True, blank=True)
+
+    creator = models.OneToOneField(User, related_name='event_user_creator')
+    editor = models.OneToOneField(User, related_name='event_user_editor', null=True)
+    lastEdit = models.DateTimeField(null=True, blank=False)
+
+    def __unicode__(self):
+        return '%s, %s' %(self.title, self.creator.username)
