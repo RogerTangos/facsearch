@@ -113,6 +113,7 @@ WSGI_APPLICATION = 'facsearch.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    '/Users/arcarter/code/facsearch/templates'
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )

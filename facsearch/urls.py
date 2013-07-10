@@ -9,6 +9,13 @@ urlpatterns = patterns('',
     # url(r'^$', 'facsearch.views.home', name='home'),
     # url(r'^facsearch/', include('facsearch.foo.urls')),
 
+    # calendar urls
+    url(r'^calendar/$', 'forms.views.calendar'),
+    url(r'^calendar/(?P<visitor_id>\d+)/$', 'forms.views.visitor_calendar'),    
+    url(r'^visitor/(?P<visitor_id>\d+)/$', 'forms.views.visitor'),
+
+
+
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

@@ -1,0 +1,9 @@
+{% if latest_visitor_list %}
+    <ul>
+    {% for visitor in latest_visitor_list %}
+        <li><a href="/calendar/{{ visitor.id }}/">{{visitor.user.last_name}}, {{visitor.user.first_name}}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No visitors are available.</p>
+{% endif %}
