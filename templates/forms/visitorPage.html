@@ -1,9 +1,91 @@
-{% if latest_visitor_list %}
-    <ul>
-    {% for visitor in latest_visitor_list %}
-        <li><a href="/calendar/{{ visitor.id }}/">{{visitor.user.last_name}}, {{visitor.user.first_name}}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No visitors are available.</p>
-{% endif %}
+<html>
+<head>
+	<title>
+		{%if visitor%}
+			{{visitor.user.last_name}} - EECS Fac Search
+		{%endif%}
+	</title>
+
+	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{%static "fullcal/css/facultysearch.css"%}">
+
+	<!-- <img src="{% static "my_app/myexample.jpg" %}" alt="My image"/> -->
+
+
+</head>
+<body>
+
+{% load staticfiles %}
+<img src="{% static "example.JPG" %}" alt="1"/>
+<img src="{% static "/example.JPG" %}" alt="2"/>
+<img src="static/example.JPG" alt="3"/>
+<img src="/static/example.JPG" alt="4"/>
+
+
+
+	<div id="info_panel">
+		<p>All Visitors:</p>
+		{% if latest_visitor_list %}
+		    <ul>
+		    {% for visitor in latest_visitor_list %}
+		        <li><a href="/calendar/{{ visitor.id }}/">Visitor: {{visitor.user.last_name}}, {{visitor.user.first_name}}</a></li>
+		    {% endfor %}
+		    </ul>
+		{% else %}
+		    <p>No visitors are available.</p>
+		{% endif %}
+
+		<!-- Current Visitor (based on ID) -->
+		<p>Selected Visitor:</p>
+		{% if visitor%}
+			<h2>{{visitor.user.last_name}}, {{visitor.user.first_name}}</h2>
+			<p>{{visitor.user.email}}</p>
+			<p>{{visitor.officePhone}}</p>
+			<p>{{visitor.cellPhone}}</p>
+
+
+
+			<h4>Mailing Address:</h4>
+			<p>{{visitor.address1}}</p>
+			{%if visitor.address2%}
+				<p>{{visitor.address2}}</p>
+			{%endif%}
+			<p>{{visitor.city}}, {{visitor.state}} {{visitor.zipcode}}, {{visitor.country}}</p>
+
+			<h4>Host(s):</h4>
+			{%for host in visitor.hosts.all%}
+				<p>{{host.user.last_name}}, {{host.user.first_name}}</p>
+				<p>{{host.user.email}}</p>
+				<p>{{host.officePhone}}</p>
+			{%endfor%}
+
+			<h4>Dietary Restructions:</h4>
+			{%if visitor.dietary%}
+				<p>{{visitor.dietary}}</p>
+			{%else%}
+				<p>{{visitor.user.first_name}} has not yet indicated dietary restrictions.</p>
+			{%endif%}
+
+
+			<h4>Video Recording Allowed:</h4>
+				{%if visitor.videoRecording%}
+					<p>Yes</p>
+				{%else%}
+					<p>No</p>
+				{%endif%}
+		
+		{% else %}
+			<p>No visitor is selected</p>
+		{%endif%}
+	</div>
+
+
+	<div id='calendar'></div>
+</body>
+</html>
+
+
+
+
+
+<!-- list of all visitors -->
