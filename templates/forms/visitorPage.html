@@ -75,6 +75,29 @@
 
 	<div id='calendar'></div>
 
+
+<!-- modal start -->
+<a class="modalLink" href="#" style="display:none">Click for modal overlay</a>
+<div class="overlay"></div>
+<div class="modal">
+	
+	<!-- content here -->
+	<div id='external-events'>
+
+	<h4>Your Meeting</h4>
+	<!-- <div class='external-event'>My Event 1</div> -->
+	<form>
+	Your Name (event title) <input type="text" name="title" id="title"><br>
+	Meeting Location: <input type="text" name="location" id="location"><br>
+	Phone: <input type="text" name="phone" id="phone"><br>
+	Details: <input type="text" name="detail" id="detail"><br>
+
+	</form>
+	<button onclick="saveEvent()">Save</button>
+	<button onclick="deleteEvent()">Delete</button>
+	<button href="#" class="closeBtn">Cancel</button>
+
+
 </body>
 </html>
 
