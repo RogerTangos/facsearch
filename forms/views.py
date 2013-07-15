@@ -27,14 +27,27 @@ def visitor(request, visitor_id):
 	latest_visitor_list = Visitor.objects.all()
 	visitor = Visitor.objects.get(pk=visitor_id)
 
+	event_list = Event.objects.filter(visitor=visitor_id)
 
-	# events = Event.objects.filter(
-		start__gte=start, end=request.end, title= request.title).values('visitor', 'start', 'end', 'title')
-	# data = simplejson.dumps(list(events), cls=DjangoJSONEncoder)
-	# 
+	formatted_list = []
 
+	for event in event_list:
+		new_event= {
+		"title": event.title,
+		"location": event.location,
+		"start":event.start,
+		"end":event.end,
+		"detail":event.detail,
+		"creator":event.creator.id,
+		"editor":event.editor.id,
+		"lastEdit":event.lastEdit,
+		}
 
-	return render_to_response ('forms/visitorPage.html', {'latest_visitor_list': latest_visitor_list, 'visitor':visitor})
+		formatted_list.append(new_event)
+
+	event_data = simplejson.dumps(formatted_list, cls=DjangoJSONEncoder)
+	print event_data
+	return render_to_response ('forms/visitorPage.html', {'latest_visitor_list': latest_visitor_list, 'visitor':visitor, 'event_data':event_data})
 	# t = loader.get_template('forms/visitorPage.html')
 	# c = Context({
 	# 	'latest_visitor_list': latest_visitor_list

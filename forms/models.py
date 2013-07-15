@@ -66,7 +66,7 @@ class Event(models.Model):
     editor = models.OneToOneField(User, related_name='event_user_editor', blank=True, default=creator)
     visitor = models.OneToOneField(Visitor, related_name='event_user_visitor')
     lastEdit = models.DateTimeField(null=True, blank=False)
-
+    detail = models.CharField(max_length=500, null=True, blank=True)
     # if editor == None:
     # 	editor = creator
 

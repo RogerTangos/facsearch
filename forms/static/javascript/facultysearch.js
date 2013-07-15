@@ -76,7 +76,8 @@ $(document).ready(function() {
       $('#location').val(calEvent.location);
       $('#phone').val(calEvent.phone);
       $('#detail').val(calEvent.detail);
-      return $('.modalLink').click();
+      $('.modalLink').click();
+      // return $("#calendar").fullCalendar('addEventSource', "{{event_data}}");
     }
   });
 });
