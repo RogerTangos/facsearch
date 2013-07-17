@@ -21,6 +21,8 @@ saveEvent = function() {
     selectedEvent.phone = phone;
     selectedEvent.detail = detail;
     $('#calendar').fullCalendar('updateEvent', selectedEvent);
+    //sync db
+
     console.log('event updated');
   } else {
     selectedEvent = {};
@@ -32,6 +34,9 @@ saveEvent = function() {
     selectedEvent.phone = phone;
     selectedEvent.detail = detail;
     $('#calendar').fullCalendar('addEventSource', [selectedEvent]);
+    //sync db
+    // update event id
+
     console.log('event added');
   }
   return $('.closeBtn').click();
@@ -39,6 +44,8 @@ saveEvent = function() {
 
 deleteEvent = function() {
   $('#calendar').fullCalendar("removeEvents", selectedEvent._id);
+  //sync db
+
   return $('.closeBtn').click();
 };
 
@@ -81,7 +88,6 @@ $(document).ready(function() {
     }
   });
 });
-
 $('.modalLink').modal({
   trigger: '.modalLink',
   olay: 'div.overlay',

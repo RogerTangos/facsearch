@@ -62,9 +62,9 @@ class Event(models.Model):
     start = models.DateTimeField(null=True, blank=True)
     end = models.DateTimeField(null=True, blank=True)
 
-    creator = models.OneToOneField(User, related_name='event_user_creator', blank=True)
-    editor = models.OneToOneField(User, related_name='event_user_editor', blank=True, default=creator)
-    visitor = models.OneToOneField(Visitor, related_name='event_user_visitor')
+    creator = models.ForeignKey(User, related_name='event_user_creator', blank=True)
+    editor = models.ForeignKey(User, related_name='event_user_editor', blank=True, default=creator)
+    visitor = models.ForeignKey(Visitor, related_name='event_user_visitor')
     lastEdit = models.DateTimeField(null=True, blank=False)
     detail = models.CharField(max_length=500, null=True, blank=True)
     # if editor == None:

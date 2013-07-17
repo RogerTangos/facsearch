@@ -18,11 +18,6 @@
 	<script src="{% static "javascript/fullcalendarfaculty.js" %}"></script>
 
 
-
-
-	// var event_data ={{event_data|first}}
-
-
 </head>
 <body>
 <!-- <h2>{{event_data}}</h2> -->
@@ -106,6 +101,18 @@
 
 
 </body>
+
+<script type="text/javascript">
+// Ugly, but I having trouble making django give safe json...
+// parse, serialize, and add json to calendar
+$( document ).ready(function() {
+	event_data = "{{event_data}}".replace(/&(lt|gt|quot);/g, function (m, p) { 
+	    return (p == "lt")? "<" : (p == "gt") ? ">" : "\"";
+	  });
+	event_data = JSON.parse(event_data);
+	$('#calendar').fullCalendar('addEventSource', event_data);
+});
+</script>
 </html>
 
 

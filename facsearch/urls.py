@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from forms import views
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -9,10 +10,16 @@ urlpatterns = patterns('',
     # url(r'^$', 'facsearch.views.home', name='home'),
     # url(r'^facsearch/', include('facsearch.foo.urls')),
 
-    # calendar urls
-    url(r'^calendar/$', 'forms.views.calendar'),
-    url(r'^calendar/(?P<visitor_id>\d+)/$', 'forms.views.visitor_calendar'),    
-    url(r'^visitor/(?P<visitor_id>\d+)/$', 'forms.views.visitor'),
+    # visitor page
+    url(r'^visitor/(?P<visitor_id>\d+)/$', views.visitor, name='visitor'),
+
+    # saveUpdate, saveNew, delete
+    url(r'^visitor/(?P<visitor_id>\d+)/saveUpdate$', views.saveUpdate , name='saveUpdate'),
+    url(r'^visitor/(?P<visitor_id>\d+)/saveNew$', views.saveNew, name='saveNew'),
+    url(r'^visitor/(?P<visitor_id>\d+)/saveDelete$', views.saveDelete, name='saveDelete'),
+
+    # url(r'^calendar/(?P<visitor_id>\d+)/$', 'forms.views.visitor_calendar'),    
+    # url(r'^calendar/$', 'forms.views.calendar'),
 
 
 
