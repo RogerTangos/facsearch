@@ -1,0 +1,14 @@
+<html>
+<head>
+	<title>submit page</title>
+</head>
+<body>submit
+
+<form action="{%url 'forms:test'%}" method="post">
+	{%csrf_token%}
+	foo form here
+	<input type="submit" value="postSubmit"/>
+
+</form>
+</body>
+</html>

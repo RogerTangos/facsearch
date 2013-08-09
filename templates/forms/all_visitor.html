@@ -1,0 +1,16 @@
+<html>
+<head>
+	<title>All EECS Visitors</title>
+</head>
+<body>
+{% if latest_visitor_list %}
+    <ul>
+    {% for candidate in latest_visitor_list %}
+        <li><a href="{%url 'forms:visitor' candidate.id%}">{{candidate.user.last_name}}, {{candidate.user.first_name}}</a></li>
+    {% endfor %}
+    </ul>
+	{% else %}
+    	<p>No visitors are available.</p>
+	{% endif %}
+</body>
+</html>

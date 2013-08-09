@@ -78,6 +78,7 @@
 	<div id='calendar'></div>
 
 
+<!-- ADDING EDITING DELETING EVENT -->
 <!-- modal start -->
 <a class="modalLink" href="#" style="display:none">Click for modal overlay</a>
 <div class="overlay"></div>
@@ -88,17 +89,21 @@
 
 	<h4>Your Meeting</h4>
 	<!-- <div class='external-event'>My Event 1</div> -->
-	<form>
+	<form action="{% url 'forms:event' visitor.id%}" method=
+	"POST"
+	{% csrf_token %}
+	
 	Your Name (event title) <input type="text" name="title" id="title"><br>
 	Meeting Location: <input type="text" name="location" id="location"><br>
 	Phone: <input type="text" name="phone" id="phone"><br>
 	Details: <input type="text" name="detail" id="detail"><br>
-
+	<button type="submit" value="save" name="save" onclick="saveEvent()">Save</button>
+	<button type="submit" value="delete" name="delete" onclick="deleteEvent()">Delete</button>
 	</form>
-	<button onclick="saveEvent()">Save</button>
-	<button onclick="deleteEvent()">Delete</button>
+	
 	<button href="#" class="closeBtn">Cancel</button>
 
+<!-- ADDING EDITING DELETING EVENT -->
 
 </body>
 
