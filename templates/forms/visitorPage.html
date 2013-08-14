@@ -89,7 +89,7 @@
 
 	<h4>Your Meeting</h4>
 	<!-- <div class='external-event'>My Event 1</div> -->
-	<form action="{% url 'forms:event' visitor.id%}" method=
+	<form id='submit_event' action="{% url 'forms:event' visitor.id%}" method=
 	"POST">
 	{% csrf_token %}
 	

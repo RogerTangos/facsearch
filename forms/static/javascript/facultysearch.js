@@ -2,11 +2,8 @@
 var deleteEvent, saveEvent, selectedAllDay, selectedEnd, selectedEvent, selectedStart;
 
 selectedEvent = null;
-
 selectedStart = null;
-
 selectedEnd = null;
-
 selectedAllDay = null;
 
 saveEvent = function() {
@@ -15,30 +12,46 @@ saveEvent = function() {
   location = $('#location').val();
   phone = $('#phone').val();
   detail = $('#detail').val();
-  if (selectedEvent !== null) {
-    selectedEvent.title = title;
-    selectedEvent.location = location;
-    selectedEvent.phone = phone;
-    selectedEvent.detail = detail;
-    $('#calendar').fullCalendar('updateEvent', selectedEvent);
-    //sync db
+    if (selectedEvent === null) {
+        selectedEvent = {};
+        selectedEvent.title = title;
+        selectedEvent.start = selectedStart;
+        selectedEvent.end = selectedEnd;
+        selectedEvent.allDay = selectedAllDay;
+        selectedEvent.location = location;
+        selectedEvent.phone = phone;
+        selectedEvent.detail = detail;
+        $('#calendar').fullCalendar('addEventSource', [selectedEvent]);
+        //sync db
+        // update event id
 
-    console.log('event updated');
-  } else {
-    selectedEvent = {};
-    selectedEvent.title = title;
-    selectedEvent.start = selectedStart;
-    selectedEvent.end = selectedEnd;
-    selectedEvent.allDay = selectedAllDay;
-    selectedEvent.location = location;
-    selectedEvent.phone = phone;
-    selectedEvent.detail = detail;
-    $('#calendar').fullCalendar('addEventSource', [selectedEvent]);
-    //sync db
-    // update event id
+        console.log('event added locally');
+//
+        data = $('#submit_event').serialize() + '&status=new';
 
-    console.log('event added');
-  }
+//      send event to server
+        $.ajax({
+            data: data, // get the form data
+            type: $('#submt_event').attr('method'), // GET or POST
+            url: "/forms/visitor/1/event", // the file to call
+            success: function (response) {
+                console.log('post was a success')
+            }
+        })
+
+
+
+        console.log('event posted to server');
+    } else {
+        selectedEvent.title = title;
+        selectedEvent.location = location;
+        selectedEvent.phone = phone;
+        selectedEvent.detail = detail;
+        $('#calendar').fullCalendar('updateEvent', selectedEvent);
+        //sync db
+
+        console.log('event updated');
+    }
   return $('.closeBtn').click();
 };
 
@@ -62,6 +75,7 @@ $(document).ready(function() {
       revertDuration: 0
     });
   });
+
   return $("#calendar").fullCalendar({
     header: {
       left: "prev,next today",
@@ -88,6 +102,8 @@ $(document).ready(function() {
     }
   });
 });
+
+
 $('.modalLink').modal({
   trigger: '.modalLink',
   olay: 'div.overlay',
@@ -105,3 +121,5 @@ $('.modalLink').modal({
   video: 'http://player.vimeo.com/video/9641036?color=eb5a3d',
   close: '.closeBtn'
 });;
+
+
