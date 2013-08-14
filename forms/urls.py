@@ -13,8 +13,6 @@ urlpatterns = patterns('',
 
     # saveUpdate, saveNew, delete
     url(r'^visitor/(?P<visitor_id>\d+)/event', views.event, name='event'),
-    url(r'^test/$', views.test, name='test'),
-    url(r'^submit/$', views.submit, name='submit')
 )
 
  # url(r'^calendar/(?P<visitor_id>\d+)/$', 'forms.views.visitor_calendar'),    

@@ -12,13 +12,16 @@ from django.template import RequestContext
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 
+
 def index(request):
 	return HttpResponse("You have reached the forms index.")
+
 
 def all_visitor(request):
 	latest_visitor_list = Visitor.objects.all()
 
 	return render_to_response('forms/all_visitor.html', {'latest_visitor_list': latest_visitor_list})
+
 
 def visitor(request, visitor_id):
 	latest_visitor_list = Visitor.objects.all()
@@ -62,28 +65,4 @@ def event(request, visitor_id):
 
 	return HttpResponseRedirect('forms/visitorPage/.html', c)
 	# return HttpResponse("You are passing an event for visitor id %s" %visitor_id)
-
-
-def test(request):
-	if request.method == 'POST':
-		return HttpResponse("Do Something")
-	else:
-		return HttpResponse("No response Received")
-
-def submit(reqest):
-	return render("forms/submit.html")
-
-# def visitor_calendar(request, visitor_id):
-# 	return HttpResponse("You're at the page for visitor %s's calendar" %visitor_id)	
-
-
-# def calendar(request):
-# 	return HttpResponse("You're at the main calendar.")
-
-
-
-# def index(request):
-# 	return HttpResponse("Hello, world. You're at the index")
-
-# 	return HttpResponse("You're at the page for visitor id %s's forms" %visitor_id)
 
