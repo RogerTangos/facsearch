@@ -1,12 +1,8 @@
 # Create your views here.
-from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.http import HttpResponse
 # from django.core.exceptions import PermissionDenied
 from forms.models import Visitor, Event
 from django.shortcuts import render_to_response, get_object_or_404, render
-from django.core.context_processors import csrf
-
-from django.core.urlresolvers import reverse
-from django.template import RequestContext
 
 # serialize events for calendar
 import json
@@ -47,22 +43,13 @@ def visitor(request, visitor_id):
 
 	event_data = json.dumps(event_data, cls=DjangoJSONEncoder)
 
-
-
-	# {u'csrf_token': <django.utils.functional.__proxy__ object at 0x103ca2710>}
-
-	return render_to_response ('forms/visitorPage.html', {'latest_visitor_list': latest_visitor_list, 'visitor':visitor, "event_data":event_data})
-
-	# return render_to_response ("forms/visitorPage.html", c)
+	return render(request, 'forms/visitorPage.html', {'latest_visitor_list': latest_visitor_list, 'visitor':visitor, "event_data":event_data})
 
 
 def event(request, visitor_id):
 	visitor = get_object_or_404(Visitor, pk=visitor_id)
-	c = {}
-	c.update(csrf(request))
 
-	# if 'event_id' in 
+	print request.POST
+	print request.POST['phone']
 
-	return HttpResponseRedirect('forms/visitorPage/.html', c)
-	# return HttpResponse("You are passing an event for visitor id %s" %visitor_id)
-
+	return HttpResponse("You are at the event page.")
