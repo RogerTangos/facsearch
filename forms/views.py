@@ -48,14 +48,6 @@ def visitor(request, visitor_id):
 
 def event(request, visitor_id):
 	print 'event page reached'
-	# Process information from event. Add to database.
-	# visitor = get_object_or_404(Visitor, pk=visitor_id)
-	# print visitor
-	print request
-
 	print request.POST
-	print request.POST['phone']
 
-	return render_to_response('forms/all_visitor.html')
-
-	# return HttpResponse("You are at the event page.")
+	return HttpResponse()

@@ -32,12 +32,13 @@ saveEvent = function() {
 //      send event to server
         $.ajax({
             data: data, // get the form data
-            type: $('#submt_event').attr('method'), // GET or POST
+            type: $('#submit_event').attr('method'), // GET or POST
             url: "/forms/visitor/1/event", // the file to call
             success: function (response) {
                 console.log('post was a success')
             }
-        })
+        });
+
 
 
 
@@ -52,14 +53,18 @@ saveEvent = function() {
 
         console.log('event updated');
     }
-  return $('.closeBtn').click();
+    $('.closeBtn').click();
+    return false;
+//    return this.preventDefault()
+//    return false;
 };
 
 deleteEvent = function() {
   $('#calendar').fullCalendar("removeEvents", selectedEvent._id);
   //sync db
 
-  return $('.closeBtn').click();
+  $('.closeBtn').click();
+   return false;
 };
 
 $(document).ready(function() {
