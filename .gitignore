@@ -1,1 +1,3 @@
 *.pyc
+ideas/
+.DS_Store
