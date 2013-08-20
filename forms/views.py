@@ -47,7 +47,28 @@ def visitor(request, visitor_id):
 
 
 def event(request, visitor_id):
+
+	post = request.POST
+
+	if post['status'] == 'delete':
+		pass
+	# 	write later, once events are in the db.
+	else:
+		new_event = Event()
+		new_event.title = post['title']
+		new_event.location = post['location']
+		new_event.detail = post['detail']
+
+	print visitor_id
+# 		need start and end time
+
+#
+#
+# <QueryDict: {u'status': [u'new'], u'title': [u'sdf'], u'detail': [u''], u'phone': [u''], u'location': [u''], u'csrfmiddlewaretoken': [u'y3SlMciee8IgHSc8P4cdDRK49TVsjG53']}>
+# [20/Aug/2013 13:44:43] "POST /forms/visitor/1/event HTTP/1.1" 200 0
+
 	print 'event page reached'
+	print new_event.title
 	print request.POST
 
 	return HttpResponse()

@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-
 # Create your models here.
+
 
 class Host(models.Model):
 	user = models.OneToOneField(User)
@@ -11,10 +11,8 @@ class Host(models.Model):
 	officeNumber = models.CharField(max_length=7, null=True, blank=True)
 	mitId = models.CharField(max_length=100, null=True, blank=True)
 
-
 	def __unicode__(self):
 		return '%s, %s | %i | %s' %(self.user.last_name, self.user.first_name, self.pk, self.user.email)
-
 
 
 class Visitor(models.Model):
@@ -40,7 +38,6 @@ class Visitor(models.Model):
 		return '%s, %s | %i | %s' %(self.user.last_name, self.user.first_name, self.pk, self.user.email)
 
 
-
 class Assistant(models.Model):
 	# denormalized for convenience
 	user = models.OneToOneField(User)
@@ -56,19 +53,21 @@ class Assistant(models.Model):
 	def __unicode__(self):
 		return '%s, %s | %i | %s' %(self.user.last_name, self.user.first_name, self.pk, self.user.email)
 
+
 class Event(models.Model):
-    title = models.CharField(max_length=60)
-    location = models.CharField(max_length=60)
-    start = models.DateTimeField(null=True, blank=True)
-    end = models.DateTimeField(null=True, blank=True)
+	title = models.CharField(max_length=60)
+	location = models.CharField(max_length=60)
+	start = models.DateTimeField(null=True, blank=True)
+	end = models.DateTimeField(null=True, blank=True)
+	# phone = models.CharField(max_length=20)
 
-    creator = models.ForeignKey(User, related_name='event_user_creator', blank=True)
-    editor = models.ForeignKey(User, related_name='event_user_editor', blank=True, default=creator)
-    visitor = models.ForeignKey(Visitor, related_name='event_user_visitor')
-    lastEdit = models.DateTimeField(null=True, blank=False)
-    detail = models.CharField(max_length=500, null=True, blank=True)
-    # if editor == None:
-    # 	editor = creator
+	creator = models.ForeignKey(User, related_name='event_user_creator', blank=True)
+	editor = models.ForeignKey(User, related_name='event_user_editor', blank=True, default=creator)
+	visitor = models.ForeignKey(Visitor, related_name='event_user_visitor')
+	lastEdit = models.DateTimeField(null=True, blank=False)
+	detail = models.CharField(max_length=500, null=True, blank=True)
+	# if editor == None:
+	# 	editor = creator
 
-    def __unicode__(self):
-        return '%s, %s' %(self.title, self.creator.username)
+	def __unicode__(self):
+		return '%s, %s' %(self.title, self.creator.username)

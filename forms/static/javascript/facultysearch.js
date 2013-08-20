@@ -63,6 +63,17 @@ deleteEvent = function() {
   $('#calendar').fullCalendar("removeEvents", selectedEvent._id);
   //sync db
 
+    data = $('#submit_event').serialize() + '&status=delete' + '&id='+ selectedEvent._id;
+
+    $.ajax({
+        data: data, // get the form data
+        type: $('#submit_event').attr('method'), // GET or POST
+        url: "/forms/visitor/1/event", // the file to call
+        success: function (response) {
+            console.log('post was a success')
+        }
+    });
+
   $('.closeBtn').click();
    return false;
 };
