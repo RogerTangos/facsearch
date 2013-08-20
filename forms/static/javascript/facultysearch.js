@@ -13,6 +13,7 @@ saveEvent = function() {
   phone = $('#phone').val();
   detail = $('#detail').val();
     if (selectedEvent === null) {
+
         selectedEvent = {};
         selectedEvent.title = title;
         selectedEvent.start = selectedStart;
@@ -30,17 +31,18 @@ saveEvent = function() {
         data = $('#submit_event').serialize() + '&status=new';
 
 //      send event to server
+//       God this code sucks. Need to convert it all to coffeescript and scrub it clean. 2014-08-20
         $.ajax({
             data: data, // get the form data
+            'start': selectedStart,
+            'end': selectedEnd,
+            'allDay': selectedAllDay,
             type: $('#submit_event').attr('method'), // GET or POST
             url: "/forms/visitor/1/event", // the file to call
             success: function (response) {
                 console.log('post was a success')
             }
         });
-
-
-
 
         console.log('event posted to server');
     } else {

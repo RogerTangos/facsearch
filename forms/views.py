@@ -53,11 +53,16 @@ def event(request, visitor_id):
 	if post['status'] == 'delete':
 		pass
 	# 	write later, once events are in the db.
-	else:
+	if post['status'] == 'new':
 		new_event = Event()
 		new_event.title = post['title']
 		new_event.location = post['location']
 		new_event.detail = post['detail']
+		new_event.phone = post['phone']
+		new_event.visitor = get_object_or_404(Visitor, pk=visitor_id)
+	if post['status'] == 'edit':
+		pass
+
 
 	print visitor_id
 # 		need start and end time

@@ -57,14 +57,14 @@ class Assistant(models.Model):
 class Event(models.Model):
 	title = models.CharField(max_length=60)
 	location = models.CharField(max_length=60)
-	start = models.DateTimeField(null=True, blank=True)
-	end = models.DateTimeField(null=True, blank=True)
-	# phone = models.CharField(max_length=20)
+	start = models.DateTimeField(null=True, blank=True) #problem
+	end = models.DateTimeField(null=True, blank=True) #problem
+	phone = models.CharField(max_length=20)
 
-	creator = models.ForeignKey(User, related_name='event_user_creator', blank=True)
-	editor = models.ForeignKey(User, related_name='event_user_editor', blank=True, default=creator)
-	visitor = models.ForeignKey(Visitor, related_name='event_user_visitor')
-	lastEdit = models.DateTimeField(null=True, blank=False)
+	creator = models.ForeignKey(User, related_name='event_user_creator', blank=True) #problem
+	editor = models.ForeignKey(User, related_name='event_user_editor', blank=True, default=creator) #problem
+	visitor = models.ForeignKey(Visitor, related_name='event_user_visitor') #problem
+	lastEdit = models.DateTimeField(auto_now=True, null=True, blank=False)
 	detail = models.CharField(max_length=500, null=True, blank=True)
 	# if editor == None:
 	# 	editor = creator
