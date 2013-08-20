@@ -18,6 +18,8 @@ saveEvent = ->
   location = $("#location").val()
   phone = $("#phone").val()
   detail = $("#detail").val()
+
+  # new event
   if selectedEvent is null
     selectedEvent = {}
     selectedEvent.title = title
@@ -27,6 +29,7 @@ saveEvent = ->
     selectedEvent.location = location
     selectedEvent.phone = phone
     selectedEvent.detail = detail
+    selectedEvent.status = 'new'
     $("#calendar").fullCalendar "addEventSource", [selectedEvent]
     
     #sync db
@@ -34,26 +37,23 @@ saveEvent = ->
     console.log "event added locally"
     
     #
-    data = $("#submit_event").serialize() + "&status=new"
+    data = selectedEvent
+    console.log data
     
     #      send event to server
-    #       God this code sucks. Need to convert it all to coffeescript and scrub it clean. 2014-08-20
     $.ajax
       data: data # get the form data
-      start: selectedStart
-      end: selectedEnd
-      allDay: selectedAllDay
       type: $("#submit_event").attr("method") # GET or POST
       url: "/forms/visitor/1/event" # the file to call
       success: (response) ->
-        console.log "post was a success"
+        console.log "post new event to server"
 
-    console.log "event posted to server"
   else
     selectedEvent.title = title
     selectedEvent.location = location
     selectedEvent.phone = phone
     selectedEvent.detail = detail
+    selectedEvent.status = 'edit'
     $("#calendar").fullCalendar "updateEvent", selectedEvent
     
     #sync db
@@ -65,10 +65,11 @@ saveEvent = ->
 #    return this.preventDefault()
 #    return false;
 deleteEvent = ->
+  selectedEvent.status = 'delete'
   $("#calendar").fullCalendar "removeEvents", selectedEvent._id
   
   #sync db
-  data = $("#submit_event").serialize() + "&status=delete" + "&id=" + selectedEvent._id
+  data = selectedEvent
   $.ajax
     data: data # get the form data
     type: $("#submit_event").attr("method") # GET or POST

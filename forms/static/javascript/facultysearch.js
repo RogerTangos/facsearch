@@ -40,26 +40,25 @@ saveEvent = function() {
     selectedEvent.location = location;
     selectedEvent.phone = phone;
     selectedEvent.detail = detail;
+    selectedEvent.status = 'new';
     $("#calendar").fullCalendar("addEventSource", [selectedEvent]);
     console.log("event added locally");
-    data = $("#submit_event").serialize() + "&status=new";
+    data = selectedEvent;
+    console.log(data);
     $.ajax({
       data: data,
-      start: selectedStart,
-      end: selectedEnd,
-      allDay: selectedAllDay,
       type: $("#submit_event").attr("method"),
       url: "/forms/visitor/1/event",
       success: function(response) {
-        return console.log("post was a success");
+        return console.log("post new event to server");
       }
     });
-    console.log("event posted to server");
   } else {
     selectedEvent.title = title;
     selectedEvent.location = location;
     selectedEvent.phone = phone;
     selectedEvent.detail = detail;
+    selectedEvent.status = 'edit';
     $("#calendar").fullCalendar("updateEvent", selectedEvent);
     console.log("event updated");
   }
@@ -69,8 +68,9 @@ saveEvent = function() {
 
 deleteEvent = function() {
   var data;
+  selectedEvent.status = 'delete';
   $("#calendar").fullCalendar("removeEvents", selectedEvent._id);
-  data = $("#submit_event").serialize() + "&status=delete" + "&id=" + selectedEvent._id;
+  data = selectedEvent;
   $.ajax({
     data: data,
     type: $("#submit_event").attr("method"),
