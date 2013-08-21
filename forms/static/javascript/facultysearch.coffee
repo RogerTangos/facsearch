@@ -9,6 +9,7 @@ selectedEvent = null
 selectedStart = null
 selectedEnd = null
 selectedAllDay = null
+
 saveEvent = ->
   detail = undefined
   location = undefined
@@ -32,22 +33,10 @@ saveEvent = ->
     selectedEvent.status = 'new'
     $("#calendar").fullCalendar "addEventSource", [selectedEvent]
     
-    #sync db
-    # update event id
     console.log "event added locally"
-    
-    #
-    data = selectedEvent
-    console.log data
-    
-    #      send event to server
-    $.ajax
-      data: data # get the form data
-      type: $("#submit_event").attr("method") # GET or POST
-      url: "/forms/visitor/1/event" # the file to call
-      success: (response) ->
-        console.log "post new event to server"
+    sendToServer('new', selectedEvent)
 
+  # existing event
   else
     selectedEvent.title = title
     selectedEvent.location = location
@@ -55,30 +44,33 @@ saveEvent = ->
     selectedEvent.detail = detail
     selectedEvent.status = 'edit'
     $("#calendar").fullCalendar "updateEvent", selectedEvent
-    
-    #sync db
-    console.log "event updated"
-  $(".closeBtn").click()
+    sendToServer('edit', selectedEvent)
+    $(".closeBtn").click()
   false
 
 
 #    return this.preventDefault()
 #    return false;
 deleteEvent = ->
-  selectedEvent.status = 'delete'
   $("#calendar").fullCalendar "removeEvents", selectedEvent._id
   
   #sync db
-  data = selectedEvent
-  $.ajax
-    data: data # get the form data
-    type: $("#submit_event").attr("method") # GET or POST
-    url: "/forms/visitor/1/event" # the file to call
-    success: (response) ->
-      console.log "post was a success"
+  sendToServer('delete', selectedEent)
 
   $(".closeBtn").click()
   false
+
+sendToServer = (action, data) ->
+  console.log 'foo'
+  $.ajax
+    data: data
+    type: $("#submit_event").attr("method") # GET or POST
+    url: "/forms/visitor/1/event" # the file to call
+    success: (response) -> false
+  return false
+      # console.log "post was a success"
+
+
 
 $(document).ready ->
   $("#external-events div.external-event").each ->
@@ -133,3 +125,4 @@ $(".modalLink").modal
   resizeWindow: true
   video: "http://player.vimeo.com/video/9641036?color=eb5a3d"
   close: ".closeBtn"
+
