@@ -9,8 +9,22 @@ selectedEvent = null
 selectedStart = null
 selectedEnd = null
 selectedAllDay = null
+`
+function cloneEvent(obj) {
+  var copy = {};
+  var fields = ['title', 'start', 'end', 'allDay', 'location', 'phone', 'detail', 'status'];
+  var field;
+  for (var ind in fields) {
+    field = fields[ind];
+    if (field in obj) {
+      copy[field] = obj[field];
+    }
+  }
+  return copy;
+}
+`
 
-saveEvent = ->
+window.saveEvent = ->
   detail = undefined
   location = undefined
   phone = undefined
@@ -33,8 +47,8 @@ saveEvent = ->
     selectedEvent.status = 'new'
     $("#calendar").fullCalendar "addEventSource", [selectedEvent]
     
-    console.log "event added locally"
-    sendToServer('new', selectedEvent)
+    console.log "event added localllly"
+    sendToServer('new', cloneEvent(selectedEvent))
 
   # existing event
   else
@@ -44,7 +58,7 @@ saveEvent = ->
     selectedEvent.detail = detail
     selectedEvent.status = 'edit'
     $("#calendar").fullCalendar "updateEvent", selectedEvent
-    sendToServer('edit', selectedEvent)
+    sendToServer('edit', cloneEvent(selectedEvent))
     $(".closeBtn").click()
   false
 
